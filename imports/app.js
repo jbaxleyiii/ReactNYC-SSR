@@ -72,7 +72,7 @@ export const Movies = withMovies(({ loading, movies, error }) => {
       </Helmet>
       <Background>
         {movies.map(movie =>
-          <Card to={movie.episode} image={movie.image} key={movie.id} />,
+          <Card to={`/${movie.episode}`} image={movie.image} key={movie.id} />,
         )}
       </Background>
     </div>
@@ -94,7 +94,7 @@ const HERO_QUERY = gql`
   }
 `;
 
-export const Character = ({ loading, character, error }) => {
+export const Character = ({ loading, character, error, networkStatus }) => {
   if (!character) return null;
   return (
     <div>
