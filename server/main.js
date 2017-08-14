@@ -11,9 +11,12 @@ import bodyParser from "body-parser";
 import express from "express";
 import { graphql } from "graphql";
 import { print } from "graphql/language/printer";
+import OpticsAgent from 'optics-agent';
 
 import { schema } from "/imports/schema";
 import { App } from "/imports/app";
+
+OpticsAgent.instrumentSchema(schema);
 
 export const render = async sink => {
   const client = new ApolloClient({
@@ -60,7 +63,11 @@ onPageLoad(render);
 // setup GraphQL endpoint and GraphiQL
 const server = express();
 
-server.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
+server.use(OpticsAgent.middleware());
+server.use("/graphql", bodyParser.json(),  graphqlExpress(req => ({
+  schema,
+  context: { opticsContext: OpticsAgent.context(req) }
+})));
 server.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
 
 WebApp.connectHandlers.use(server);
