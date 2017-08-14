@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "react"
+  ],
+  "plugins": [
+    "transform-react-require",
+    "transform-inline-environment-variables",
+    "transform-dead-code-elimination",
+    "emotion/babel"
+  ]
+}
