@@ -128,7 +128,7 @@ const Presentation = () =>
 
       {/* SEO */}
       <Slide transition={[]} style={dark}>
-        <Heading fit caps lineHeight={1} textColor="primary">
+        <Heading caps lineHeight={1} textColor="primary">
           SEO
         </Heading>
         <Text
