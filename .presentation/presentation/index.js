@@ -68,16 +68,13 @@ const Presentation = () =>
       </Slide>
 
       {/* What */}
-      <Slide transition={[]} bgColor="light-primary">
-        <Heading fit caps lineHeight={1} textColor="secondary">
+      <Slide transition={[]} style={dark}>
+        <Heading fit caps lineHeight={1} textColor="light-primary">
           Browser | Native | Server
-        </Heading>
-        <Heading size={10} textFont="secondary" textColor="dark-secondary">
-          <S type="italic">typeof window === "undefined"</S>
         </Heading>
         <Text
           margin="30px 0 0 0"
-          textColor="dark-primary"
+          textColor="light-primary"
           textFont="secondary"
           textAlign="left"
           textSize="28px"
@@ -129,7 +126,27 @@ const Presentation = () =>
         />
       </Slide>
 
-      {/* Frameworks */}
+      {/* SEO */}
+      <Slide transition={[]} style={dark}>
+        <Heading fit caps lineHeight={1} textColor="primary">
+          SEO
+        </Heading>
+        <Text
+          margin="30px 0 0 0"
+          textColor="light-primary"
+          textFont="secondary"
+          textAlign="left"
+          textSize="28px"
+          lineHeight={1.4}
+        >
+          This is the most common reason that I hear from people of why they
+          want SSR. It is true that crawlers like Google Bot have gotten better
+          at crawling client side apps, however, SSR is still the best way to
+          ensure your content is picked up by crawlers.
+        </Text>
+      </Slide>
+
+      {/* Performance */}
       <Slide transition={[]} style={dark}>
         <Heading fit caps lineHeight={1} textColor="primary">
           Performance
@@ -153,6 +170,28 @@ const Presentation = () =>
         </Text>
       </Slide>
 
+      {/* SEO */}
+      <Slide transition={[]} style={dark}>
+        <Heading fit caps lineHeight={1} textColor="primary">
+          Progressive Enhancement
+        </Heading>
+        <Text
+          margin="30px 0 0 0"
+          textColor="light-primary"
+          textFont="secondary"
+          textAlign="left"
+          textSize="28px"
+          lineHeight={1.4}
+        >
+          For sites and apps that target a wide range of audiences, having SSR
+          allows you to create a progressively enhanced expereience. When you
+          deliver the basic expereience without requiring client side scripts,
+          audiences with low end devices or poor connections are still able to
+          engage your product. 30kb of html is easier to download and consume
+          than 300kb + of js and parse time.
+        </Text>
+      </Slide>
+
       {/* Why GraphQL */}
       <Slide transition={[]} style={dark}>
         <Heading fit caps lineHeight={1} textColor="primary">
@@ -169,10 +208,11 @@ const Presentation = () =>
           GraphQL is a query language for APIs and a runtime for fulfilling
           those queries with your existing data. One of the biggest wins of it
           is to make your apps more responsive than ever before by only loading
-          the data you're actually using, and reduce the number of roundtrips to
-          fetch all of the resources for a particular view. Instead of stacking
-          network requests in componentDidMount, you can declare your data and
-          render your component knowing you will have just what you requested.
+          the data you're actually using, and reducing the number of roundtrips
+          to fetch all of the resources for a particular view. Instead of
+          stacking network requests in componentDidMount, you can declare your
+          data and render your component knowing you will have just what you
+          requested.
         </Text>
       </Slide>
 
@@ -204,6 +244,30 @@ const Presentation = () =>
               Can support remote or local server data
             </ListItem>
           </List>
+        </Text>
+      </Slide>
+
+      {/* Component */}
+      <Slide transition={[]} style={dark}>
+        <Heading fit caps lineHeight={1} textColor="primary">
+          Components Only
+        </Heading>
+        <Text
+          margin="30px 0 0 0"
+          textColor="light-primary"
+          textFont="secondary"
+          textAlign="left"
+          textSize="28px"
+          lineHeight={1.4}
+        >
+          The React component model is incredibly effective. With tools like
+          react-router 4 and popular css-in-js libs, all of the needs a
+          component could have (routing, styling, content) live within the
+          component model. Data should be the same way. Instead of declaring
+          root level fetches and passing data way down the tree, we can use
+          Apollo to let each component delcare its own data needs. This becomes
+          especially critical on the server where we don't want to have to
+          rewrite our data fetching code just for SSR.
         </Text>
       </Slide>
 
@@ -264,6 +328,11 @@ const Presentation = () =>
       </Slide>
 
       <Slide transition={[]} style={dark}>
+        <Image
+          width="100px"
+          src={require("../assets/icon-apollo-white-128x128.png")}
+        />
+
         <Heading
           size={1}
           margin="20px 0 0 0"
@@ -274,15 +343,7 @@ const Presentation = () =>
         >
           Thank you!
         </Heading>
-        <Heading
-          size={8}
-          margin="0 20px 0 0"
-          textFont="secondary"
-          textColor="light-secondary"
-        >
-          <S type="italic">james@meteor.com</S>
-        </Heading>
-        <Heading size={8} textFont="secondary" textColor="light-secondary">
+        <Heading size={6} textFont="secondary" textColor="light-primary">
           <S type="italic">@jbaxleyiii</S>
         </Heading>
       </Slide>
