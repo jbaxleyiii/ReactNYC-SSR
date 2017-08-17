@@ -66,7 +66,7 @@ export const render = async sink => {
 };
 
 // hanlde SSR
-onPageLoad(render);
+// onPageLoad(render);
 
 // expose graphql endpoint
 // setup GraphQL endpoint and GraphiQL
