@@ -31,8 +31,10 @@ export const theme = createTheme(
     alert: "#e04e4b",
   },
   {
-    primary: "Source Sans Pro",
-    secondary: "Source Sans Pro",
+    primary:
+      "'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    secondary:
+      "'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
   },
 );
 
