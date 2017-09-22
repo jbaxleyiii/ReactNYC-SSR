@@ -59,7 +59,7 @@ export const render = async sink => {
 
   sink.appendToBody(`
     <script>
-      window.__APOLLO_STATE__=${JSON.stringify(cache.getData())};
+      window.__APOLLO_STATE__ = ${JSON.stringify(cache.extract())}
       window.__CSS__=${JSON.stringify(ids)}
     </script>
   `);

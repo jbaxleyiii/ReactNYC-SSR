@@ -14,8 +14,9 @@ export const start = () => {
   hydrate(window.__CSS__);
 
   const client = new ApolloClient({
-    cache: new InmemoryCache(window.__APOLLO_STATE__),
+    cache: new InmemoryCache().restore(window.__APOLLO_STATE__ || {}),
     link: new HttpLink({ uri: "/graphql" }),
+    connectToDevTools: true,
   });
 
   const WrappedApp = (
