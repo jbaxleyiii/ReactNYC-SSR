@@ -9,18 +9,15 @@
     "lint-fix": "prettier --trailing-comma all --write \"{client,server,imports}/**/*.js*\""
   },
   "lint-staged": {
-    "*.ts*": [
-      "prettier --trailing-comma all --write",
-      "git add"
-    ],
-    "*.js*": [
-      "prettier --trailing-comma all --write",
-      "git add"
-    ]
+    "*.ts*": ["prettier --trailing-comma all --write", "git add"],
+    "*.js*": ["prettier --trailing-comma all --write", "git add"]
   },
   "pre-commit": "lint-staged",
   "dependencies": {
-    "apollo-client": "^1.9.1",
+    "apollo-cache-inmemory": "^0.2.0-beta.1",
+    "apollo-client": "^2.0.0-beta.1",
+    "apollo-link-core": "^0.5.0",
+    "apollo-link-http": "^0.6.1-beta.1",
     "apollo-server-express": "^1.1.0",
     "babel-runtime": "^6.20.0",
     "body-parser": "^1.17.2",
@@ -33,11 +30,12 @@
     "meteor-node-stubs": "~0.2.4",
     "optics-agent": "^1.1.6",
     "react": "^15.6.1",
-    "react-apollo": "^1.4.14",
+    "react-apollo": "^1.4.13",
     "react-dom": "^15.6.1",
     "react-helmet": "^5.1.3",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
     "theming": "^1.1.0"
   },
   "devDependencies": {
