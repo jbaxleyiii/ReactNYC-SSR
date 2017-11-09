@@ -1,6 +1,9 @@
 import { renderToString } from "react-dom/server";
 import { onPageLoad } from "meteor/server-render";
-import { ApolloClient, getDataFromTree, ApolloProvider } from "react-apollo";
+import { getDataFromTree, ApolloProvider } from "react-apollo";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink, Observable } from "apollo-link";
+import { InMemoryCache } from "apollo-cache-inmemory";
 import { Helmet } from "react-helmet";
 import { extractCritical } from "emotion/server";
 import { StaticRouter } from "react-router";
@@ -11,20 +14,24 @@ import bodyParser from "body-parser";
 import express from "express";
 import { graphql } from "graphql";
 import { print } from "graphql/language/printer";
-import OpticsAgent from 'optics-agent';
 
 import { schema } from "/imports/schema";
 import { App } from "/imports/app";
 
-OpticsAgent.instrumentSchema(schema);
-
 export const render = async sink => {
   const client = new ApolloClient({
     // simple local interface to query graphql directly
-    networkInterface: {
-      query: ({ query, variables, operationName }) =>
-        graphql(schema, print(query), {}, {}, variables, operationName),
-    },
+    link: new ApolloLink(({ query, variables, operationName }) => {
+      return new Observable(obs => {
+        graphql(schema, print(query), {}, {}, variables, operationName)
+          .then(result => {
+            obs.next(result);
+            obs.complete();
+          })
+          .catch(obs.error.bind(obs));
+      });
+    }),
+    cache: new InMemoryCache(),
     ssrMode: true,
   });
 
@@ -50,7 +57,7 @@ export const render = async sink => {
 
   sink.appendToBody(`
     <script>
-      window.__APOLLO_STATE__=${JSON.stringify(client.getInitialState())};
+      window.__APOLLO_STATE__=${JSON.stringify(client.cache.extract())};
       window.__CSS__=${JSON.stringify(ids)}
     </script>
   `);
@@ -63,11 +70,13 @@ onPageLoad(render);
 // setup GraphQL endpoint and GraphiQL
 const server = express();
 
-server.use(OpticsAgent.middleware());
-server.use("/graphql", bodyParser.json(),  graphqlExpress(req => ({
-  schema,
-  context: { opticsContext: OpticsAgent.context(req) }
-})));
+server.use(
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress(req => ({
+    schema,
+  })),
+);
 server.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
 
 WebApp.connectHandlers.use(server);
